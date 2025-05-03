@@ -61,9 +61,10 @@ const Appointment = () => {
         const slotDate = day + "_" + month + "_" + year
         const slotTime = formattedTime
 
-        const isSlotAvailable = docInfo.slot_booked[slotDate] && docInfo.slot_booked[slotDate].includes(slotTime) ? false : true
+        const bookedSlots = docInfo?.slot_booked?.[slotDate] || [];
+        const isSlotBooked = bookedSlots.includes(formattedTime);
 
-        if(isSlotAvailable){
+        if(!isSlotBooked){
           // add slot to array
           timeSlots.push({
             datetime: new Date(currentDate),
